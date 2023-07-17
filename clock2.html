@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+      *
+      {
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+      }
+      body
+      {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+        background:#b19f7d;
+      }
+      .clock
+      {
+        width:350px;
+        height:350px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:rgb(139, 57, 57);
+        z-index: 1;
+        border-radius:50%;
+        box-shadow:inset 0 0 30px rgb(0,0,0,0.1),
+          0 20px 20px rgba(0,0,0,.2),
+          0 0 0 4px rgba(255,255,255,1);
+      }
+      .clock::before
+      {
+        content:'';
+        position:absolute;
+        width:15px;
+        height:15px;
+        background:#848484;
+        border:2px solid #fff;
+        z-index:100000;
+        border-radius:50%;
+      }
+      .hour,
+      .min,
+      .sec
+      {
+        position:absolute;
+      }
+      .hour, .hr
+      {
+        width:160px;
+        height:160px;
+      }
+      .min, .mn
+      {
+        width:280px;
+        height:280px;
+      }
+      .sec, .sc
+      {
+        width:270px;
+        height:270px;
+      }
+      .hr, .mn, .sc
+      {
+        display:flex;
+        justify-content:center;
+        position:absolute;
+        border-radius:50%;
+      }
+      .hr::before
+      {
+        content:'';
+        position:absolute;
+        width:8px;
+        height:110px;
+        background:#848484;
+        z-index:10;
+        border-radius: 6px 6px 6px 6px;
+      }
+      .mn::before
+      {
+        content:'';
+        position:absolute;
+        width:8px;
+        height:170px;
+        background:#d6d6d6;
+        z-index:11;
+        border-radius: 6px 6px 6px 6px;
+      }
+      .sc::before
+      {
+        content:'';
+        position:absolute;
+        width:2px;
+        height:170px;
+        background:#ff6767;
+        z-index:12;
+        border-radius: 6px 6px 6px 6px;
+      }
+      .marks
+      {
+        width:350px;
+        height:400px;
+        font-size: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: bold;
+        border-radius:50%;
+      }
+      .mark
+      {
+        --rot: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width:50px;
+        height:50px;
+        transform: translate(-50%, -50%) rotate(var(--rot)) translate(0, -140px);
+        text-align: center;
+        font-size: 40px;
+        color: #fff;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      .mark::before
+      {
+        content: '';
+        --rot: 0;
+        position: absolute;
+        width:5px;
+        height:10px;
+        left: 50%;
+        transform: translate(-50%, -6px);
+        background:#fff;
+        z-index: 0;
+        border-radius: 10px;
+        text-align: center;
+        vertical-align: middle;
+      }
+    </style>
+    <!--<link rel="stylesheet" href="style.css"/>-->
+    <!--<script defer src="script.js"></script>-->
+  </head>
+  <body>
+    <div class="clock">
+      <div>
+        <div class="mark">12</div>
+        <div class="mark" style="--rot: 30deg;">1</div>
+        <div class="mark" style="--rot: 60deg;">2</div>
+        <div class="mark" style="--rot: 90deg;">3</div>
+        <div class="mark" style="--rot: 120deg;">4</div>
+        <div class="mark" style="--rot: 150deg;">5</div>
+        <div class="mark" style="--rot: 180deg;">6</div>
+        <div class="mark" style="--rot: 210deg;">7</div>
+        <div class="mark" style="--rot: 240deg;">8</div>
+        <div class="mark" style="--rot: 270deg;">9</div>
+        <div class="mark" style="--rot: 300deg;">10</div>
+        <div class="mark" style="--rot: 330deg;">11</div>
+      </div>
+      <div class="hour">
+        <div class="hr" id="hr"></div>
+      </div>
+      <div class="min">
+        <div class="mn" id="mn"></div>
+      </div>
+      <div class="sec">
+        <div class="sc" id="sc"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      const deg = 6;
+      const hr = document.querySelector("#hr");
+      const mn = document.querySelector("#mn");
+      const sc = document.querySelector("#sc");
+      setInterval(() => {
+        let day = new Date();
+        let hh = day.getHours() * 30;
+        let mm = day.getMinutes() * deg;
+        let ss = day.getSeconds() * deg;
+        mn.style.transform = `rotateZ(${mm}deg)`;
+        hr.style.transform = `rotateZ(${hh+(mm/12)}deg)`;
+        sc.style.transform = `rotateZ(${ss}deg)`;
+      })
+    </script>
+  </body>
+</html>
